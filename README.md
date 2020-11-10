@@ -1,6 +1,9 @@
 # kathmandu-test
 Use the Zomato API to build a restaurant navigator and viewer.
 
+# Framework
+This project is built in React Native, with Redux state management. Expo workflow container has been used to enable easy web browser access. 
+
 # Dependencies
 - [Native Base](https://docs.nativebase.io/Components.html#Components) - UI kit
 - [Expo](https://expo.io) - React Native app container and managed workflow
