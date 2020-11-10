@@ -24,16 +24,19 @@ const MainContentArea = ({ itemId }) => {
       setIsLoading(false);
     }
     fetchData();
-  
+
     // Re-run any time itemId changes (when we get a new restaurant)
   }, [itemId]);
-  
 
-  return (
-    isLoading
-      ? <Spinner />
-      : <RestaurantContent item={item} />
-  )
+  if (itemId && itemId != '') {
+    return (
+      isLoading
+        ? <Spinner />
+        : <RestaurantContent item={item} />
+    )
+  }
+  return null;
+
 }
 
 const mapStateToProps = (state) => {
