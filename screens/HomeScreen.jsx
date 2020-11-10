@@ -37,11 +37,11 @@ export default HomeScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: deviceWidth,
+    width: '100%',
   },
   topContainer: {
     flex: 1,
-    backgroundColor: 'red',
+    backgroundColor: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -51,13 +51,14 @@ const styles = StyleSheet.create({
   },
   leftContainer: {
     flex: 1,
-    backgroundColor: 'blue',
+    backgroundColor: '#e6e6e6',
     alignItems: 'center',
     justifyContent: 'center',
+    minWidth: 300,
   },
   rightContainer: {
     flex: 3,
-    backgroundColor: 'green',
+    backgroundColor: '#f2f2f2',
     alignItems: 'center',
     justifyContent: 'center',
   },

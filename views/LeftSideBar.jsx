@@ -5,9 +5,10 @@ import { Dimensions, FlatList, StyleSheet } from 'react-native';
 import ContentItem from '../components/ContentItem';
 import { getRestaurants } from '../util/fetch';
 import ResultsHeader from '../components/ResultsHeader';
+import { connect } from 'react-redux';
 
 
-const LeftSideBar = ({ filter }) => {
+const LeftSideBar = ({ categories, cuisine }) => {
 
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -17,34 +18,49 @@ const LeftSideBar = ({ filter }) => {
       setIsLoading(true);
 
       // Fetch list of restaurants
-      const restaurants = await getRestaurants(filter);
-      setItems(prevItems => [...prevItems, ...restaurants.restaurants]);
+      const restaurants = await getRestaurants();
+      setItems(restaurants.restaurants);
       setIsLoading(false);
     }
     fetchData();
 
-  }, []);
+  }, [categories, cuisine]); // Update only if categories or cuisine values change
 
   return (
     <Container style={styles.container}>
-      <FlatList
-        data={items}
-        ListHeaderComponent={() => <ResultsHeader />}
-        renderItem={({ item }) => <ContentItem item={item.restaurant} />}
-        style={styles.flatlist}
-        ListEmptyComponent={() => <Spinner />}
-      />
+      {isLoading
+        ? <Spinner />
+        : <FlatList
+          data={items}
+          ListHeaderComponent={() => <ResultsHeader />}
+          renderItem={({ item }) => <ContentItem item={item.restaurant} />}
+          style={styles.flatlist}
+          ListEmptyComponent={() => <Text>No results, adjust your filters</Text>}
+        />
+      }
     </Container>
   )
 }
 
-export default LeftSideBar;
+
+const mapStateToProps = (state) => {
+  return {
+    categories: state.categories,
+    cuisine: state.cuisine
+  }
+}
+
+// redux connecter which connect redux to this component
+export default connect(
+  mapStateToProps,
+  {}
+)(LeftSideBar);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    backgroundColor: '#fefefe',
+    backgroundColor: 'transparent',
   },
   flatlist: {
     flex: 1,

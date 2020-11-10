@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Body, Container, Content, ListItem, Text, View, } from 'native-base';
+import { Body, Container, Content, ListItem, Text, View, H3 } from 'native-base';
 import { StyleSheet } from 'react-native';
 
 const ResultsHeader = ({ item }) => {
@@ -8,9 +8,9 @@ const ResultsHeader = ({ item }) => {
     <View style={styles.container}>
       <ListItem style={styles.container}>
         <Body>
-          <Text>
+          <H3>
             Results
-          </Text>
+          </H3>
         </Body>
       </ListItem>
     </View>

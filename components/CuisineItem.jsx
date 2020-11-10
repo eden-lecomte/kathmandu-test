@@ -5,16 +5,14 @@ import { StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-na
 import { toggleDataByID } from '../redux/actions';
 import { connect } from 'react-redux';
 
-const CategoryItem = ({ item, categoriesChecked, toggleDataByID }) => {
+const CuisineItem = ({ item, cuisineChecked, toggleDataByID }) => {
 
-  // Update checkbox to visually indicate if category is selected
   function isChecked() {
-    return categoriesChecked.includes(item.categories.id);
+    return cuisineChecked.includes(item.cuisine.cuisine_id);
   }
 
-  // Add/remove ID from state to track which categories have been selected
   function toggleValue() {
-    toggleDataByID(item.categories.id, 'categories')
+    toggleDataByID(item.cuisine.cuisine_id, 'cuisine')
   }
 
   return (
@@ -23,7 +21,7 @@ const CategoryItem = ({ item, categoriesChecked, toggleDataByID }) => {
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
           <CheckBox checked={isChecked()} />
           <Text style={{ marginLeft: 20 }}>
-            {item.categories.name}
+            {item.cuisine.cuisine_name}
           </Text>
         </View>
       </TouchableWithoutFeedback>
@@ -33,7 +31,7 @@ const CategoryItem = ({ item, categoriesChecked, toggleDataByID }) => {
 
 const mapStateToProps = (state) => {
   return {
-    categoriesChecked: state.categories
+    cuisineChecked: state.cuisine
   }
 }
 
@@ -41,7 +39,7 @@ const mapStateToProps = (state) => {
 export default connect(
   mapStateToProps,
   { toggleDataByID }
-)(CategoryItem);
+)(CuisineItem);
 
 
 const styles = StyleSheet.create({

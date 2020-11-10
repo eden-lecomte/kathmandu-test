@@ -1,15 +1,49 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Container} from 'native-base';
+import { Container, Content, Spinner } from 'native-base';
+import { connect } from 'react-redux';
 
+import RestaurantContent from '../components/RestaurantContent';
+import { getRestaurant } from '../util/fetch';
 
-const MainContentArea = () => {
+const MainContentArea = ({ itemId }) => {
+  const [item, setItem] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Run on load
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true);
+
+      // Fetch list of restaurants
+      if (itemId) {
+        const restaurant = await getRestaurant(itemId);
+        setItem(restaurant);
+      }
+
+      setIsLoading(false);
+    }
+    fetchData();
+  
+    // Re-run any time itemId changes (when we get a new restaurant)
+  }, [itemId]);
+  
 
   return (
-      <Container>
-        
-      </Container>
+    isLoading
+      ? <Spinner />
+      : <RestaurantContent item={item} />
   )
 }
 
-export default MainContentArea;
+const mapStateToProps = (state) => {
+  return {
+    itemId: state.restaurant
+  }
+}
+
+// redux connecter which connect redux to this component
+export default connect(
+  mapStateToProps,
+  {}
+)(MainContentArea);
