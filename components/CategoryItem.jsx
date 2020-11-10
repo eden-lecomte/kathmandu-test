@@ -21,7 +21,7 @@ const CategoryItem = ({ item, categoriesChecked, toggleDataByID }) => {
     <View style={styles.container}>
       <TouchableWithoutFeedback onPress={() => toggleValue()}>
         <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-          <CheckBox checked={isChecked()} />
+          <CheckBox checked={isChecked()} onPress={() => toggleValue()} />
           <Text style={{ marginLeft: 20 }}>
             {item.categories.name}
           </Text>
